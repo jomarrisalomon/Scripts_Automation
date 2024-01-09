@@ -1,0 +1,3 @@
+﻿# AD Get active users of name,samaccountname, logon timestamps and password last set:
+
+Get-ADUser -Filter {Enabled -eq $True} -Properties Name, SamAccountName, LastLogon, LastLogonTimestamp, PasswordLastSet | Select-Object Name, SamAccountName, @{Name="LastLogon"; Expression={[DateTime]::FromFileTime($_.LastLogon)}}, @{Name="LastLogonTimeStamp"; Expression={[DateTime]::FromFileTime($_.LastLogonTimestamp)}}, @{Name="PasswordLastSet"; Expression={[DateTime]::FromFileTime($_.PasswordLastSet)}}
